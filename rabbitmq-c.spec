@@ -5,18 +5,22 @@
 Summary:	RabbitMQ C AMQP client library
 Summary(pl.UTF-8):	Biblioteka kliencka C RabbitMQ AMQP
 Name:		rabbitmq-c
-Version:	0.3.0
+Version:	0.6.0
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/alanxz/rabbitmq-c
-Source0:	https://github.com/alanxz/rabbitmq-c/archive/%{name}-v%{version}.tar.gz
-# Source0-md5:	a7f0fbf59bf29843ad4125b1a784a520
+Source0:	https://github.com/alanxz/rabbitmq-c/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	2940281e7386f579ef2ecb47e5ed7508
 URL:		https://github.com/alanxz/rabbitmq-c
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	libtool >= 2:2.2
+BuildRequires:	openssl-devel >= 0.9.8
+BuildRequires:	popt-devel
+BuildRequires:	pkgconfig >= 1:0.17
 BuildRequires:	xmlto
+Requires:	openssl >= 0.9.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -32,6 +36,7 @@ Summary:	Header files for rabbitmq-c library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki rabbitmq-c
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	openssl-devel >= 0.9.8
 
 %description devel
 Header files for rabbitmq-c library.
@@ -64,7 +69,7 @@ Example tools utilizing the rabbitmq-c library.
 Przykładowe narzędzia wykorzystujące bibliotekę rabbitmq-c.
 
 %prep
-%setup -q -n %{name}-%{name}-v%{version}
+%setup -q
 
 %build
 %{__libtoolize}
@@ -96,13 +101,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS CONTRIBUTING.md LICENSE-MIT README.md THANKS TODO
 %attr(755,root,root) %{_libdir}/librabbitmq.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/librabbitmq.so.1
+%attr(755,root,root) %ghost %{_libdir}/librabbitmq.so.4
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/librabbitmq.so
 %{_includedir}/amqp.h
 %{_includedir}/amqp_framing.h
+%{_includedir}/amqp_ssl_socket.h
+%{_includedir}/amqp_tcp_socket.h
 %{_pkgconfigdir}/librabbitmq.pc
 
 %if %{with static_libs}
