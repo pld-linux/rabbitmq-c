@@ -5,17 +5,15 @@
 Summary:	RabbitMQ C AMQP client library
 Summary(pl.UTF-8):	Biblioteka kliencka C RabbitMQ AMQP
 Name:		rabbitmq-c
-Version:	0.8.0
-Release:	2
+Version:	0.10.0
+Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/alanxz/rabbitmq-c
-Source0:	https://github.com/alanxz/rabbitmq-c/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	c15dbcd2dbb8e254c1de0494c1bb8c91
+Source0:	https://github.com/alanxz/rabbitmq-c/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	6f09f0cb07cea221657a768bd9c7dff7
 URL:		https://github.com/alanxz/rabbitmq-c
-BuildRequires:	autoconf >= 2.59
-BuildRequires:	automake >= 1:1.9
-BuildRequires:	libtool >= 2:2.2
+BuildRequires:	cmake >= 2.8.12
 BuildRequires:	openssl-devel >= 0.9.8
 BuildRequires:	popt-devel
 BuildRequires:	pkgconfig >= 1:0.17
@@ -72,24 +70,19 @@ Przykładowe narzędzia wykorzystujące bibliotekę rabbitmq-c.
 %setup -q
 
 %build
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	--disable-silent-rules \
-	%{?with_static_libs:--enable-static}
+install -d build
+cd build
+%cmake .. \
+	%{!?with_static_libs:-DBUILD_STATIC_LIBS=OFF} \
+	-DBUILD_TOOLS_DOCS=ON
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-# obsoleted by pkg-config
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
