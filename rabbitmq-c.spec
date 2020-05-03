@@ -9,7 +9,7 @@ Version:	0.10.0
 Release:	1
 License:	MIT
 Group:		Libraries
-#Source0Download: https://github.com/alanxz/rabbitmq-c
+#Source0Download: https://github.com/alanxz/rabbitmq-c/releases
 Source0:	https://github.com/alanxz/rabbitmq-c/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	6f09f0cb07cea221657a768bd9c7dff7
 URL:		https://github.com/alanxz/rabbitmq-c
