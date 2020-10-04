@@ -1,7 +1,12 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static libraries
+%bcond_without	tests		# don't build tests
 #
+%if %{without static_libs}
+# tests require static libs
+%undefine	with_tests
+%endif
 Summary:	RabbitMQ C AMQP client library
 Summary(pl.UTF-8):	Biblioteka kliencka C RabbitMQ AMQP
 Name:		rabbitmq-c
@@ -74,6 +79,7 @@ install -d build
 cd build
 %cmake .. \
 	%{!?with_static_libs:-DBUILD_STATIC_LIBS=OFF} \
+	%{!?with_tests:-DBUILD_TESTS=OFF} \
 	-DBUILD_TOOLS_DOCS=ON \
 	-DCMAKE_INSTALL_INCLUDEDIR:PATH=include \
 	-DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}
