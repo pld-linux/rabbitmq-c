@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_without	static_libs	# don't build static libraries
-%bcond_without	tests		# don't build tests
+%bcond_without	static_libs	# static libraries
+%bcond_without	tests		# tests
 #
 %if %{without static_libs}
 # tests require static libs
@@ -10,20 +10,20 @@
 Summary:	RabbitMQ C AMQP client library
 Summary(pl.UTF-8):	Biblioteka kliencka C RabbitMQ AMQP
 Name:		rabbitmq-c
-Version:	0.11.0
-Release:	2
+Version:	0.13.0
+Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/alanxz/rabbitmq-c/releases
 Source0:	https://github.com/alanxz/rabbitmq-c/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	e7d9896577aea6351811d7c1d7f0a68a
+# Source0-md5:	2de19cdd2b4f7c76f624f031e161f925
 URL:		https://github.com/alanxz/rabbitmq-c
-BuildRequires:	cmake >= 2.8.12
-BuildRequires:	openssl-devel >= 0.9.8
+BuildRequires:	cmake >= 3.12
+BuildRequires:	openssl-devel >= 1.1.1
 BuildRequires:	popt-devel
 BuildRequires:	pkgconfig >= 1:0.17
 BuildRequires:	xmlto
-Requires:	openssl >= 0.9.8
+Requires:	openssl >= 1.1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -39,7 +39,7 @@ Summary:	Header files for rabbitmq-c library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki rabbitmq-c
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	openssl-devel >= 0.9.8
+Requires:	openssl-devel >= 1.1.1
 
 %description devel
 Header files for rabbitmq-c library.
@@ -79,7 +79,8 @@ install -d build
 cd build
 %cmake .. \
 	%{!?with_static_libs:-DBUILD_STATIC_LIBS=OFF} \
-	%{!?with_tests:-DBUILD_TESTS=OFF} \
+	%{!?with_tests:-DBUILD_TESTING=OFF} \
+	-DBUILD_TOOLS=ON \
 	-DBUILD_TOOLS_DOCS=ON \
 	-DCMAKE_INSTALL_INCLUDEDIR:PATH=include \
 	-DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}
@@ -100,7 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS CONTRIBUTING.md LICENSE-MIT README.md THANKS TODO
+%doc AUTHORS CONTRIBUTING.md LICENSE README.md THANKS
 %attr(755,root,root) %{_libdir}/librabbitmq.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/librabbitmq.so.4
 
@@ -111,6 +112,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/amqp_framing.h
 %{_includedir}/amqp_ssl_socket.h
 %{_includedir}/amqp_tcp_socket.h
+%{_includedir}/rabbitmq-c
 %{_pkgconfigdir}/librabbitmq.pc
 %{_libdir}/cmake/rabbitmq-c
 
