@@ -10,13 +10,13 @@
 Summary:	RabbitMQ C AMQP client library
 Summary(pl.UTF-8):	Biblioteka kliencka C RabbitMQ AMQP
 Name:		rabbitmq-c
-Version:	0.14.0
+Version:	0.15.0
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/alanxz/rabbitmq-c/releases
 Source0:	https://github.com/alanxz/rabbitmq-c/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	8e95a78de16738adf774914093cadb70
+# Source0-md5:	719e96cb3cd9e2c16f3e9cf3b47b8746
 URL:		https://github.com/alanxz/rabbitmq-c
 BuildRequires:	cmake >= 3.22
 BuildRequires:	openssl-devel >= 1.1.1
