@@ -10,13 +10,13 @@
 Summary:	RabbitMQ C AMQP client library
 Summary(pl.UTF-8):	Biblioteka kliencka C RabbitMQ AMQP
 Name:		rabbitmq-c
-Version:	0.15.0
+Version:	0.16.0
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/alanxz/rabbitmq-c/releases
 Source0:	https://github.com/alanxz/rabbitmq-c/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	719e96cb3cd9e2c16f3e9cf3b47b8746
+# Source0-md5:	46f25e765d96e98161dfd45de02560b9
 URL:		https://github.com/alanxz/rabbitmq-c
 BuildRequires:	cmake >= 3.22
 BuildRequires:	openssl-devel >= 1.1.1
@@ -98,12 +98,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS CONTRIBUTING.md LICENSE README.md THANKS
-%attr(755,root,root) %{_libdir}/librabbitmq.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/librabbitmq.so.4
+%{_libdir}/librabbitmq.so.*.*.*
+%ghost %{_libdir}/librabbitmq.so.4
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/librabbitmq.so
+%{_libdir}/librabbitmq.so
 %{_includedir}/amqp.h
 %{_includedir}/amqp_framing.h
 %{_includedir}/amqp_ssl_socket.h
