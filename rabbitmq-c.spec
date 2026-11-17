@@ -10,36 +10,36 @@
 Summary:	RabbitMQ C AMQP client library
 Summary(pl.UTF-8):	Biblioteka kliencka C RabbitMQ AMQP
 Name:		rabbitmq-c
-Version:	0.17.0
+Version:	0.18.1
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/alanxz/rabbitmq-c/releases
 Source0:	https://github.com/alanxz/rabbitmq-c/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	5dc34eb3b0684967932f08dd54e8bdc0
+# Source0-md5:	e1f42868c14ac0ff39d3bf32474d762a
 URL:		https://github.com/alanxz/rabbitmq-c
 BuildRequires:	cmake >= 3.22
 BuildRequires:	openssl-devel >= 1.1.1
-BuildRequires:	popt-devel
+BuildRequires:	popt-devel >= 1.14
 BuildRequires:	pkgconfig >= 1:0.17
 BuildRequires:	xmlto
-Requires:	openssl >= 1.1.1
+Requires:	openssl%{?_isa} >= 1.1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-This is a C-language AMQP client library for use with AMQP servers
-speaking protocol versions 0-9-1.
+This is a C-language AMQP client library for use with v2.0+ of the
+RabbitMQ broker.
 
 %description -l pl.UTF-8
 Ten pakiet zawiera bibliotekę kliencką AMQP dla języka C, przeznaczoną
-do użycia z serwerami AMQP obsługującymi protokół w wersjach 0-9-1.
+do użycia z brokerami RabbitMQ w wersji 2.0+.
 
 %package devel
 Summary:	Header files for rabbitmq-c library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki rabbitmq-c
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	openssl-devel >= 1.1.1
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	openssl-devel%{?_isa} >= 1.1.1
 
 %description devel
 Header files for rabbitmq-c library.
@@ -51,7 +51,7 @@ Pliki nagłówkowe biblioteki rabbitmq-c.
 Summary:	Static rabbitmq-c library
 Summary(pl.UTF-8):	Statyczna biblioteka rabbitmq-c
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
 Static rabbitmq-c library.
@@ -63,7 +63,8 @@ Statyczna biblioteka rabbitmq-c.
 Summary:	Example tools utilizing the rabbitmq-c library
 Summary(pl.UTF-8):	Przykładowe narzędzia wykorzystujące bibliotekę rabbitmq-c
 Group:		Applications
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	popt%{?_isa} >= 1.14
 
 %description tools
 Example tools utilizing the rabbitmq-c library.
